@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Image Searcher</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="powered_by_google">Powered by Google</string>
     <string name="action_settings">Settings</string>
+
 
 </resources>
