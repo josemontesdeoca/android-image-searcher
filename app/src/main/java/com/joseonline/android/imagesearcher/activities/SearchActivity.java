@@ -1,9 +1,11 @@
-package com.joseonline.android.imagesearcher;
+package com.joseonline.android.imagesearcher.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.joseonline.android.imagesearcher.R;
 
 
 public class SearchActivity extends ActionBarActivity {
