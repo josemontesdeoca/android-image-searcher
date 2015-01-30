@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Simple Google Image Search API client to run searches
- * 
+ *
  * @author Jose Montes de Oca
  */
 public class GoogleImageSearchClient {
@@ -24,7 +24,7 @@ public class GoogleImageSearchClient {
     private static final String GOOGLE_IMAGE_SEARCH_API_SCHEME = "https";
     private static final String GOOGLE_IMAGE_SEARCH_API_AUTHORITY = "ajax.googleapis.com";
     private static final String GOOGLE_IMAGE_SEARCH_API_PATH = "/ajax/services/search/images";
-    private static final int GOOGLE_IMAGE_RESULT_SIZE = 8;
+    public static final int GOOGLE_IMAGE_RESULT_SIZE = 8;
 
     public interface GoogleImageSearchServiceResponseHandler {
         void onSuccess(List<Image> results);
