@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context=".SearchActivity">
 
     <TextView
@@ -15,15 +16,18 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
         android:id="@+id/gvImages"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/tvPoweredByGoogle"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:numColumns="3"/>
 
 
 </RelativeLayout>
