@@ -1,8 +1,5 @@
 package com.joseonline.android.imagesearcher.helpers;
 
-import android.net.Uri;
-import android.util.Log;
-
 import com.joseonline.android.imagesearcher.models.Image;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -10,6 +7,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.net.Uri;
+import android.util.Log;
 
 import java.util.List;
 
@@ -21,12 +21,17 @@ import java.util.List;
 public class GoogleImageSearchClient {
 
     private static final String LOG_TAG = "GoogleImageSearchClient";
+
     private static final String GOOGLE_IMAGE_SEARCH_API_SCHEME = "https";
+
     private static final String GOOGLE_IMAGE_SEARCH_API_AUTHORITY = "ajax.googleapis.com";
+
     private static final String GOOGLE_IMAGE_SEARCH_API_PATH = "/ajax/services/search/images";
+
     public static final int GOOGLE_IMAGE_RESULT_SIZE = 8;
 
     public interface GoogleImageSearchServiceResponseHandler {
+
         void onSuccess(List<Image> results);
     }
 

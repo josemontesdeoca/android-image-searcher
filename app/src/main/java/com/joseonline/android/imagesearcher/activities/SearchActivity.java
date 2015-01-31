@@ -1,5 +1,15 @@
 package com.joseonline.android.imagesearcher.activities;
 
+import com.google.common.collect.Lists;
+
+import com.joseonline.android.imagesearcher.R;
+import com.joseonline.android.imagesearcher.adapters.ImageAdapter;
+import com.joseonline.android.imagesearcher.adapters.RecentSearchesCursorAdapter;
+import com.joseonline.android.imagesearcher.helpers.GoogleImageSearchClient;
+import com.joseonline.android.imagesearcher.listeners.EndlessScrollListener;
+import com.joseonline.android.imagesearcher.models.Image;
+import com.joseonline.android.imagesearcher.models.RecentSearch;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -11,15 +21,6 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.google.common.collect.Lists;
-import com.joseonline.android.imagesearcher.R;
-import com.joseonline.android.imagesearcher.adapters.ImageAdapter;
-import com.joseonline.android.imagesearcher.adapters.RecentSearchesCursorAdapter;
-import com.joseonline.android.imagesearcher.helpers.GoogleImageSearchClient;
-import com.joseonline.android.imagesearcher.listeners.EndlessScrollListener;
-import com.joseonline.android.imagesearcher.models.Image;
-import com.joseonline.android.imagesearcher.models.RecentSearch;
-
 import java.util.List;
 
 public class SearchActivity extends ActionBarActivity {
@@ -27,11 +28,15 @@ public class SearchActivity extends ActionBarActivity {
     private static final String LOG_TAG = "SearchActivity";
 
     private SearchView searchView;
+
     private GridView gvImages;
 
     private List<Image> images;
+
     private ImageAdapter imageAdapter;
+
     private String query;
+
     private GoogleImageSearchClient googleImageSearchClient;
 
     @Override
@@ -58,10 +63,11 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 // Google Image API limit queries to 8 pages
-                if (page >0 && page < 8) {
+                if (page > 0 && page < 8) {
                     searchImages(query, page * GoogleImageSearchClient.GOOGLE_IMAGE_RESULT_SIZE);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Aw, Snap! No more images to load", Toast.LENGTH_LONG)
+                    Toast.makeText(getApplicationContext(), "Aw, Snap! No more images to load",
+                            Toast.LENGTH_LONG)
                             .show();
                 }
             }
@@ -95,7 +101,8 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Cursor recentSearchesCursor = RecentSearch.getRecentSearchesCursor(newText);
-                RecentSearchesCursorAdapter recentSearchesCursorAdapter = new RecentSearchesCursorAdapter(getBaseContext(), recentSearchesCursor);
+                RecentSearchesCursorAdapter recentSearchesCursorAdapter
+                        = new RecentSearchesCursorAdapter(getBaseContext(), recentSearchesCursor);
                 searchView.setSuggestionsAdapter(recentSearchesCursorAdapter);
                 return true;
             }

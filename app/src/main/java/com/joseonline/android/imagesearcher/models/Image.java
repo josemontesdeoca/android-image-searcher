@@ -1,12 +1,12 @@
 package com.joseonline.android.imagesearcher.models;
 
-import android.util.Log;
-
 import com.google.common.collect.Lists;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,11 +15,12 @@ import java.util.List;
 /**
  * @author Jose Montes de Oca
  */
-public class Image implements Serializable{
+public class Image implements Serializable {
 
     private static final String LOG_TAG = "Image";
 
     private String imageUrl;
+
     private String thumbnailUrl;
 
     public Image(String imageUrl, String thumbnailUrl) {
@@ -32,7 +33,7 @@ public class Image implements Serializable{
             this.imageUrl = json.getString("url");
             this.thumbnailUrl = json.getString("tbUrl");
         } catch (JSONException e) {
-            this.imageUrl = null ;
+            this.imageUrl = null;
             this.thumbnailUrl = null;
             Log.w(LOG_TAG, "Unable to parse Image from " + json.toString(), e);
         }
@@ -45,7 +46,8 @@ public class Image implements Serializable{
             try {
                 results.add(new Image(jsonArray.getJSONObject(i)));
             } catch (JSONException e) {
-                Log.w(LOG_TAG, "Unable to get image " + i + "from the json array: " + jsonArray.toString());
+                Log.w(LOG_TAG, "Unable to get image " + i + "from the json array: " + jsonArray
+                        .toString());
             }
         }
 

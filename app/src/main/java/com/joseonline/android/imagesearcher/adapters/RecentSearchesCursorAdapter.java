@@ -1,5 +1,7 @@
 package com.joseonline.android.imagesearcher.adapters;
 
+import com.joseonline.android.imagesearcher.R;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -8,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.joseonline.android.imagesearcher.R;
-
 /**
  * Recent Queries cursor adapter
  */
 public class RecentSearchesCursorAdapter extends CursorAdapter {
+
     public RecentSearchesCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
