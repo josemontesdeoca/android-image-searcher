@@ -1,5 +1,6 @@
 package com.joseonline.android.imagesearcher.activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -13,12 +14,13 @@ import android.widget.Toast;
 import com.google.common.collect.Lists;
 import com.joseonline.android.imagesearcher.R;
 import com.joseonline.android.imagesearcher.adapters.ImageAdapter;
+import com.joseonline.android.imagesearcher.adapters.RecentSearchesCursorAdapter;
 import com.joseonline.android.imagesearcher.helpers.GoogleImageSearchClient;
 import com.joseonline.android.imagesearcher.listeners.EndlessScrollListener;
 import com.joseonline.android.imagesearcher.models.Image;
+import com.joseonline.android.imagesearcher.models.RecentSearch;
 
 import java.util.List;
-
 
 public class SearchActivity extends ActionBarActivity {
 
@@ -71,6 +73,7 @@ public class SearchActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.expandActionView();
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_hint));
 
@@ -79,6 +82,11 @@ public class SearchActivity extends ActionBarActivity {
             public boolean onQueryTextSubmit(String q) {
                 query = q;
                 searchImages(query, 0);
+
+                // Save query term
+                RecentSearch recentSearch = new RecentSearch(query);
+                recentSearch.save();
+
                 imageAdapter.clear();
                 searchView.clearFocus();
                 return true;
@@ -86,7 +94,26 @@ public class SearchActivity extends ActionBarActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Cursor recentSearchesCursor = RecentSearch.getRecentSearchesCursor(newText);
+                RecentSearchesCursorAdapter recentSearchesCursorAdapter = new RecentSearchesCursorAdapter(getBaseContext(), recentSearchesCursor);
+                searchView.setSuggestionsAdapter(recentSearchesCursorAdapter);
+                return true;
+            }
+        });
+
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
                 return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+                String query = cursor.getString(cursor.getColumnIndexOrThrow("query"));
+
+                searchView.setQuery(query, true);
+                return true;
             }
         });
         return true;
@@ -112,7 +139,7 @@ public class SearchActivity extends ActionBarActivity {
                 new GoogleImageSearchClient.GoogleImageSearchServiceResponseHandler() {
                     @Override
                     public void onSuccess(List<Image> results) {
-                        for (Image result: results) {
+                        for (Image result : results) {
                             imageAdapter.add(result);
                         }
                         Log.i(LOG_TAG, "Result size " + results.size());
