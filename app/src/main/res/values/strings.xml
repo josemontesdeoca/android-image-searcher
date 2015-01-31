@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Image Searcher</string>
+    <string name="app_name">Searchy</string>
     <string name="powered_by_google">Powered by Google</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Enter search term</string>
